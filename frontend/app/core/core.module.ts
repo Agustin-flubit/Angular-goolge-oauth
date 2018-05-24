@@ -10,6 +10,7 @@ import { environment } from '../../environments/environment';
 import { GoogleAuthService } from './auth/auth.service';
 import { NotificationsService } from './notifications/notifications.service';
 import { AuthGuard } from './auth/auth-guard.service';
+import { ApiService } from './api/api.service';
 
 export function getAuthServiceConfigs() {
   const config = new AuthServiceConfig(
@@ -31,6 +32,7 @@ export function getAuthServiceConfigs() {
   declarations: [],
   providers: [
     AuthGuard,
+    ApiService,
     GoogleAuthService,
     NotificationsService,
     {
@@ -45,4 +47,4 @@ export class CoreModule {
       throw new Error('CoreModule is already loaded');
     }
   }
- }
+}
