@@ -8,6 +8,7 @@ import {
 
 import { environment } from '../../environments/environment';
 import { GoogleAuthService } from './auth/auth.service';
+import { NotificationsService } from './notifications/notifications.service';
 
 export function getAuthServiceConfigs() {
   const config = new AuthServiceConfig(
@@ -29,6 +30,7 @@ export function getAuthServiceConfigs() {
   declarations: [],
   providers: [
     GoogleAuthService,
+    NotificationsService,
     {
       provide: AuthServiceConfig,
       useFactory: getAuthServiceConfigs
