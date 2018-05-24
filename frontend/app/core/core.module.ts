@@ -7,6 +7,7 @@ import {
 } from 'angular5-social-login';
 
 import { environment } from '../../environments/environment';
+import { GoogleAuthService } from './auth/auth.service';
 
 export function getAuthServiceConfigs() {
   const config = new AuthServiceConfig(
@@ -27,6 +28,7 @@ export function getAuthServiceConfigs() {
   ],
   declarations: [],
   providers: [
+    GoogleAuthService,
     {
       provide: AuthServiceConfig,
       useFactory: getAuthServiceConfigs

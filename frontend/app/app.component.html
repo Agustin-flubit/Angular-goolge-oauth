@@ -1,6 +1,16 @@
 <app-header>
-    <button mat-icon-button>
+    <button mat-icon-button [matMenuTriggerFor]="appMenu" *ngIf="!(isAuthenticated$ | async)">
         <mat-icon>person</mat-icon>
     </button>
+    <mat-menu #appMenu="matMenu">
+        <button mat-menu-item>Help</button>
+    </mat-menu>
+    <button class="avatar-btn" [matMenuTriggerFor]="appMenu2" *ngIf="(isAuthenticated$ | async) && (user$ | async)">
+        <img [src]="(user$ | async)?.image" class="avatar">
+    </button>
+    <mat-menu #appMenu2="matMenu">
+        <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
 </app-header>
 <router-outlet></router-outlet>
+<app-signin *ngIf="!(isAuthenticated$ | async)"></app-signin>
