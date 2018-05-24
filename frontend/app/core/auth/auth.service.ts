@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { tokenNotExpired } from 'angular2-jwt';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
   AuthService,
@@ -25,9 +26,13 @@ export class GoogleAuthService {
     private notificationService: NotificationsService,
     private router: Router
   ) {
-    this.isAuthStatus = false;
-    this.isAuthenticated = new BehaviorSubject(this.isAuthStatus);
+    this.isAuthStatus = tokenNotExpired();
 
+    if (this.isAuthStatus) {
+      this.user = JSON.parse(localStorage.getItem('user'));
+    }
+
+    this.isAuthenticated = new BehaviorSubject(this.isAuthStatus);
     this.isAuthenticated$ = this.isAuthenticated.asObservable();
     this.user$ = new BehaviorSubject<SocialUser>(this.user);
   }
@@ -42,6 +47,7 @@ export class GoogleAuthService {
       (userData) => {
         this.user = userData;
         localStorage.setItem('token', userData.idToken);
+        localStorage.setItem('user', JSON.stringify(userData));
         this.notificationService.open(this.MSG_LOGIN_SUCCESS);
         this.isAuthStatus = true;
         this.isAuthenticated.next(true);
@@ -58,7 +64,7 @@ export class GoogleAuthService {
       this.user = null;
       this.user$.next(this.user);
       this.notificationService.open(this.MSG_LOGOUT_SUCCESS);
-      this.router.navigate(['/sign-in']);
+      this.router.navigate(['/signin']);
     });
   }
 }
