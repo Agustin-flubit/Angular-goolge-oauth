@@ -23,7 +23,6 @@ export function getAuthServiceConfigs() {
   );
   return config;
 }
-
 @NgModule({
   imports: [
     CommonModule,
