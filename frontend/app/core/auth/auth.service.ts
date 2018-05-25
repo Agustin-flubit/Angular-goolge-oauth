@@ -59,12 +59,18 @@ export class GoogleAuthService {
 
   logout(): void {
     this.socialAuthService.signOut().then(() => {
-      localStorage.removeItem('token');
-      this.isAuthenticated.next(false);
-      this.user = null;
-      this.user$.next(this.user);
+      this.deleteUser();
       this.notificationService.open(this.MSG_LOGOUT_SUCCESS);
       this.router.navigate(['/signin']);
     });
+  }
+
+  deleteUser() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.isAuthStatus = false;
+    this.isAuthenticated.next(false);
+    this.user$.next(this.user);
+    this.user = null;
   }
 }

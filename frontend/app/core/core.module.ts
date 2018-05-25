@@ -11,6 +11,10 @@ import { GoogleAuthService } from './auth/auth.service';
 import { NotificationsService } from './notifications/notifications.service';
 import { AuthGuard } from './auth/auth-guard.service';
 import { ApiService } from './api/api.service';
+import { UserService } from './user/user.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth/auth-interceptor';
+import { TitleResolver } from './resolvers/title-resolver';
 
 export function getAuthServiceConfigs() {
   const config = new AuthServiceConfig(
@@ -34,9 +38,16 @@ export function getAuthServiceConfigs() {
     ApiService,
     GoogleAuthService,
     NotificationsService,
+    TitleResolver,
+    UserService,
     {
       provide: AuthServiceConfig,
       useFactory: getAuthServiceConfigs
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
     }
   ]
 })

@@ -8,9 +8,8 @@ export class UserService {
 
   constructor(private apiService: ApiService) { }
 
-  load(userId?: number): Observable<User> {
-    const url = userId ? `/${userId}` : '';
-    return this.apiService.get(`/users${userId}`);
+  load(): Observable<User[]> {
+    return this.apiService.get(`/users`);
   }
 
   create(user: User): Observable<User> {

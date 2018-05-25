@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { NotificationsService } from '../notifications/notifications.service';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 import { environment } from '../../../environments/environment';
 
@@ -41,8 +43,7 @@ export class ApiService {
     const paramsString = params ? params.toString() : '';
 
     const options = this.createRequestOptions(body, params);
-    return this.httpClient.request<any>(method, `${this.baseUrl}${path}`, options)
-      .catch(this.requestErrorHandler.bind(this));
+    return this.httpClient.request<any>(method, `${this.baseUrl}${path}`, options);
   }
 
   private createRequestOptions(body?: any | undefined, params?: HttpParams) {
@@ -55,13 +56,13 @@ export class ApiService {
     return options;
   }
 
-  private requestErrorHandler(err: HttpErrorResponse): Observable<HttpErrorResponse> {
-    const errors = err.error;
+  // private requestErrorHandler(err: HttpErrorResponse): Observable<HttpErrorResponse> {
+  //   const errors = err.error.details;
 
-    if (!errors) {
-      this.notificationsService.open('Oops! Something went wrong, please try again.');
-    }
+  //   if (!errors) {
+  //     this.notificationsService.open('Oops! Something went wrong, please try again.');
+  //   }
 
-    return Observable.throw(err);
-  }
+  //   return Observable.throw(err);
+  // }
 }

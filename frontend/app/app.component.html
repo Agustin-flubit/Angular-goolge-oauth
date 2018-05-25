@@ -1,4 +1,4 @@
-<app-header>
+<app-header [title]="currentPageTitle$ | async">
     <button mat-icon-button *ngIf="!(isAuthenticated$ | async)" [routerLink]="['/signin']">
         <mat-icon>person</mat-icon>
     </button>

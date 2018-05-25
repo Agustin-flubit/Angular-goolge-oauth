@@ -1,0 +1,9 @@
+<ul  *ngIf="users$ | async; else loading">
+  <li *ngFor="let user of users$ | async">
+    {{user.iban}}
+  </li>
+</ul>
+
+<ng-template #loading>
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</ng-template>
