@@ -1,5 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+      @content;
+    }
+    @-moz-keyframes #{$name} {
+      @content;
+    }
+    @-ms-keyframes #{$name} {
+      @content;
+    }
+    @keyframes #{$name} {
+      @content;
+    }
+}
+
 
 body {
     background-color: #f5f5f5;
@@ -14,4 +31,13 @@ html {
 .mat-progress-spinner svg {
     width: 30px !important;
     height: 30px !important;
+}
+
+@include keyframes(fadeIn) {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

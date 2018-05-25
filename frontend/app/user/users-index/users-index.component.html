@@ -1,9 +1,3 @@
-<ul  *ngIf="users$ | async; else loading">
-  <li *ngFor="let user of users$ | async">
-    {{user.iban}}
-  </li>
-</ul>
+<h1>User list</h1>
 
-<ng-template #loading>
-  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-</ng-template>
+<app-users-list [users]="users$ | async"></app-users-list>

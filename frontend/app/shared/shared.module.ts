@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from './material/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
+import { UsersListComponent } from './components/users-list/users-list.component';
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    UsersListComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +18,8 @@ import { HeaderComponent } from './components/header/header.component';
   exports: [
     MaterialModule,
     HttpClientModule,
-    HeaderComponent
+    HeaderComponent,
+    UsersListComponent
   ],
 })
 export class SharedModule { }
