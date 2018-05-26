@@ -16,7 +16,18 @@ export const getUsersState = createSelector(
     state => state.users
 );
 
+export const getSelectedContactId = createSelector(
+    getUsersState,
+    fromUsers.getCurrentUserId
+);
+
 export const {
     selectAll: getAllUsers,
     selectEntities: getUsersEntities
 } = fromUsers.usersAdapter.getSelectors(getUsersState);
+
+export const getCurrentUser = createSelector(
+    getUsersEntities,
+    getSelectedContactId,
+    (entities, id) => id && entities[id]
+);

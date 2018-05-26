@@ -2,7 +2,7 @@
     <button mat-icon-button *ngIf="!(isAuthenticated$ | async)" [routerLink]="['/signin']">
         <mat-icon>person</mat-icon>
     </button>
-    
+
     <button class="avatar-btn" [matMenuTriggerFor]="appMenu2" *ngIf="(isAuthenticated$ | async) && (user$ | async)">
         <img [src]="(user$ | async)?.image" class="avatar">
     </button>

@@ -5,11 +5,7 @@ import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 
-import {
-    UsersActionTypes,
-    LoadAll,
-    LoadAllSuccess
-} from '../actions/users-actions';
+import * as userActions from '../actions/users-actions';
 import { UserService } from '../../../core/user/user.service';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../../../core/user/user';
@@ -24,8 +20,15 @@ export class UsersEffects {
     ) {}
 
     @Effect()
-    LoadAll$: Observable<Action> = this.actions$
-        .ofType(UsersActionTypes.LOAD_ALL)
+    loadAll$: Observable<Action> = this.actions$
+        .ofType(userActions.UsersActionTypes.LOAD_ALL)
         .switchMap(() => this.userService.load())
-        .map((users: User[]) => new LoadAllSuccess(users));
+        .map((users: User[]) => new userActions.LoadAllSuccess(users));
+
+    @Effect()
+    load$: Observable<Action> = this.actions$
+        .ofType(userActions.UsersActionTypes.LOAD)
+        .map( (action: userActions.Load ) => action.payload)
+        .switchMap((id) => this.userService.loadOne(id))
+        .map((contact: User) => new userActions.LoadSuccess(contact));
 }

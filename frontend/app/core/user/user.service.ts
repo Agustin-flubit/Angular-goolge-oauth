@@ -12,6 +12,10 @@ export class UserService {
     return this.apiService.get(`/users`);
   }
 
+  loadOne(id: number): Observable<User> {
+    return this.apiService.get(`/users/${id}`);
+  }
+
   create(user: User): Observable<User> {
     return this.apiService.post(`/users`, user);
   }

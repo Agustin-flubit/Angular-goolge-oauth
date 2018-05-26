@@ -2,8 +2,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../../core/user/user';
 import * as fromRoot from '../store';
-import * as fromUserActions from '../store/actions/users-actions';
+import * as userActions from '../store/actions/users-actions';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users-index',
@@ -15,12 +16,17 @@ export class UsersIndexComponent implements OnInit {
 
   users$: Observable<User[]>;
 
-  constructor(public store: Store<fromRoot.UsersState>) {
+  constructor(private store: Store<fromRoot.UsersState>, private router: Router) {
     this.users$ = this.store.select(fromRoot.getAllUsers);
   }
 
   ngOnInit() {
-    this.store.dispatch(new fromUserActions.LoadAll());
+    this.store.dispatch(new userActions.LoadAll());
+  }
+
+  showUser(contact: User) {
+    this.store.dispatch(new userActions.SetCurrentUserId(contact.id));
+    this.router.navigate(['/users', contact.id]);
   }
 
 }

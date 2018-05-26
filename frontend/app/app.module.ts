@@ -10,7 +10,7 @@ import { SharedModule } from './shared/shared.module';
 import { AppRoutesModule } from './app.routes.module';
 import * as fromRoot from './store';
 import { UserModule } from './user/user.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
@@ -20,12 +20,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule,
     SharedModule,
     CoreModule,
     AppRoutesModule,
-    StoreModule.forRoot(fromRoot.reducers), /* Initialise the Central Store with Application's main reducer*/
-    EffectsModule.forRoot([]), /* Start monitoring app's side effects */
+    StoreModule.forRoot(fromRoot.reducers),
+    EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 50 })
   ],
   bootstrap: [AppComponent]

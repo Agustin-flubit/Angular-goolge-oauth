@@ -1,0 +1,14 @@
+.form {
+    animation: fadeIn 600ms;
+    display: flex;
+    flex-direction: column;
+
+    mat-form-field {
+        margin-bottom: 1rem;
+    }
+
+    mat-icon {
+        margin-right: 8px;
+    }
+
+}

@@ -1,3 +1,6 @@
 <h1>User list</h1>
 
-<app-users-list [users]="users$ | async"></app-users-list>
+<app-users-list 
+  [users]="users$ | async"
+  (show)="showUser($event)"
+></app-users-list>

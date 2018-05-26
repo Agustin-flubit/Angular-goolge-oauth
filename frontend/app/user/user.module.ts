@@ -10,6 +10,9 @@ import * as fromUsers from './store';
 import { SharedModule } from '../shared/shared.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { UsersEffects } from './store/effects/users-effects';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { UserNewComponent } from './user-new/user-new.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
 
 @NgModule({
   imports: [
@@ -24,7 +27,10 @@ import { UsersEffects } from './store/effects/users-effects';
   ],
   declarations: [
     UserComponent,
-    UsersIndexComponent
+    UsersIndexComponent,
+    UserDetailsComponent,
+    UserNewComponent,
+    UserEditComponent
   ]
 })
 export class UserModule { }

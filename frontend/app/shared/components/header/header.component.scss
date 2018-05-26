@@ -2,6 +2,14 @@ mat-toolbar {
     margin-bottom: 4rem;
 }
 
+button {
+    outline: none;
+}
+
 .spacer {
     flex: 1 1 auto;
+}
+
+.current-title {
+    margin: 0 2rem 0 0; 
 }
