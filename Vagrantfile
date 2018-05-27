@@ -35,6 +35,7 @@ Vagrant.configure(2) do |config|
       apt-get update
       curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
       apt-get install -y nodejs
+      npm install -g @angular/cli
   SHELL
 
 end
