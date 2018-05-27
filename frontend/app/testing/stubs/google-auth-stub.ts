@@ -3,9 +3,10 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 export class GoogleAuthStub {
   isAuthenticated$ = new BehaviorSubject<boolean>(false);
+  private isAuthStatus = false;
   user$ = new BehaviorSubject(undefined);
 
-  getUser() {
+  getCurrentUser() {
     return Observable.of(this.user$.value || {
         provider: '',
         id: '',
@@ -17,7 +18,7 @@ export class GoogleAuthStub {
 
   login() {}
 
-  logout() { }
+  logout() {}
 
   deleteUser() {}
 }

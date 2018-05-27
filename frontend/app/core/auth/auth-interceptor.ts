@@ -27,7 +27,7 @@ export class AuthInterceptor implements HttpInterceptor {
         if (err instanceof HttpErrorResponse) {
             if (err.status === 401) {
                  this.authService.deleteUser();
-                 this.router.navigate(['signin']); // In case any unauthenticated request
+                 this.router.navigate(['/signin']); // In case any unauthenticated request
             }
         }
     });

@@ -13,6 +13,7 @@ import { NotificationsService } from '../notifications/notifications.service';
 @Injectable()
 export class GoogleAuthService {
   private readonly  MSG_LOGIN_SUCCESS = `You are now logged in.`;
+  private readonly MSG_LOGIN_ERROR = `Error Login. Try again`;
   private readonly  MSG_LOGOUT_SUCCESS = `You are now logged out.`;
   private isAuthenticated: BehaviorSubject<boolean>;
   private user: SocialUser;
@@ -26,7 +27,8 @@ export class GoogleAuthService {
     private notificationService: NotificationsService,
     private router: Router
   ) {
-    this.isAuthStatus = tokenNotExpired();
+    const token = localStorage.getItem('token');
+    this.isAuthStatus = token ? true : false;
 
     if (this.isAuthStatus) {
       this.user = JSON.parse(localStorage.getItem('user'));
@@ -54,7 +56,10 @@ export class GoogleAuthService {
         this.user$.next(this.user);
         this.router.navigate(['']);
       }
-    );
+    ).catch(() => {
+      this.notificationService.open(this.MSG_LOGIN_ERROR);
+      this.router.navigate(['/signin']);
+    });
   }
 
   logout(): void {
