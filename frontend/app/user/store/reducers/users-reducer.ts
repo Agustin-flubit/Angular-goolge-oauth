@@ -2,6 +2,7 @@ import { EntityState, createEntityAdapter } from '@ngrx/entity';
 import { User } from '../../../core/user/user';
 
 import * as userActions from '../actions/users-actions';
+import { FormGroup } from '@angular/forms';
 
 // This adapter will allow is to manipulate users (CRUD operations)
 export const usersAdapter = createEntityAdapter<User>({
@@ -11,10 +12,12 @@ export const usersAdapter = createEntityAdapter<User>({
 
 export interface State extends EntityState<User> {
     currentUserId?: number;
+    errors: Object;
 }
 
 export const INIT_STATE: State = usersAdapter.getInitialState({
-    currentUserId: undefined
+    currentUserId: undefined,
+    errors: null
 });
 
 export function reducer (
@@ -25,27 +28,50 @@ export function reducer (
         case userActions.UsersActionTypes.SET_CURRENT_USER_ID : {
             return {
               ...state,
-              currentUserId: payload
+              currentUserId: payload,
+              errors: undefined
+            };
+        }
+
+        case userActions.UsersActionTypes.CREATE || userActions.UsersActionTypes.PATCH : {
+            return {
+              ...state,
+              errors: undefined
             };
         }
 
         case userActions.UsersActionTypes.LOAD_ALL_SUCCESS : {
-            return usersAdapter.addAll(payload, state);
+            return usersAdapter.addAll(payload, {
+                ...state,
+                errors: undefined
+            });
         }
 
         case userActions.UsersActionTypes.LOAD_SUCCESS || userActions.UsersActionTypes.CREATE_SUCCESS : {
             return usersAdapter.addOne(payload, {
                 ...state,
-                currentUserId: payload.id
+                currentUserId: payload.id,
+                errors: undefined
             });
+
         }
 
         case userActions.UsersActionTypes.PATCH_SUCCESS : {
-            return usersAdapter.updateOne(payload, state);
+            return usersAdapter.updateOne(payload, {
+                ...state,
+                errors: undefined
+            });
         }
 
         case userActions.UsersActionTypes.DELETE_SUCCESS : {
             return usersAdapter.removeOne(payload, state);
+        }
+
+        case userActions.UsersActionTypes.FAILURE: {
+            return {
+                ...state,
+                errors: payload.error
+            };
         }
 
         default: return state;
@@ -53,3 +79,4 @@ export function reducer (
 }
 
 export const getCurrentUserId = (state: State) => state.currentUserId;
+export const getErrors = (state: State) => state.errors;

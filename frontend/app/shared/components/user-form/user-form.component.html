@@ -43,8 +43,8 @@
               IBAN is <strong>required</strong>
           </mat-error>
 
-          <mat-error *ngIf="form.get('iban').hasError('pattern') && !form.get('iban').hasError('required')">
-              Please enter a valid IBAN
+          <mat-error *ngIf="form.get('iban').errors">
+              {{form.get('iban').errors[0]}}
           </mat-error>
       </mat-form-field>
     </div>

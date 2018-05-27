@@ -24,9 +24,13 @@ export class UsersIndexComponent implements OnInit {
     this.store.dispatch(new userActions.LoadAll());
   }
 
-  showUser(contact: User) {
-    this.store.dispatch(new userActions.SetCurrentUserId(contact.id));
-    this.router.navigate(['/users', contact.id]);
+  showUser(user: User) {
+    this.store.dispatch(new userActions.SetCurrentUserId(user.id));
+    this.router.navigate(['/users', user.id]);
   }
 
+  editUser(user: User) {
+    this.store.dispatch(new userActions.SetCurrentUserId(user.id));
+    this.router.navigate(['/users', user.id, 'edit']);
+  }
 }

@@ -1,2 +1,7 @@
 <h1>Edit User</h1>
-<app-user-form></app-user-form>
+
+<app-user-form 
+  [user]="user$ | async" 
+  [validationErrors]="validationErrors | async" 
+  (save)="submit($event)">
+</app-user-form>

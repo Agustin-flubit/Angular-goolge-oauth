@@ -1,2 +1,2 @@
 <h1>New User</h1>
-<app-user-form></app-user-form>
+<app-user-form [validationErrors]="validationErrors | async" (save)="submit($event)"></app-user-form>
