@@ -1,5 +1,5 @@
 <table *ngIf="users; else loading" class="table table-hover">
-  <p class="text-center">
+  <p class="text-center" *ngIf="users.length === 0">
     No users. <a class="btn-link" [routerLink]="['/users','new']">add a user</a>
   </p>
 

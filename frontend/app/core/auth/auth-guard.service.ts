@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { GoogleAuthService } from './auth.service';
+import 'rxjs/add/operator/take';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
