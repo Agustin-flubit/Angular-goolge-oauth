@@ -29,4 +29,12 @@ Vagrant.configure(2) do |config|
     salt.verbose = true
     salt.bootstrap_options = "-c /tmp/ -P"
   end
+
+  #front end provision
+    config.vm.provision "shell", inline: <<-SHELL
+      apt-get update
+      curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+      apt-get install -y nodejs
+  SHELL
+
 end
