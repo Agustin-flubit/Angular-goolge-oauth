@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User } from '../../../core/user/user';
 
+import { User } from '../../../core/user/user';
 
 @Component({
   selector: 'app-user-form',
@@ -46,6 +46,7 @@ export class UserFormComponent implements OnChanges {
 
   submit() {
     this.submitted = true;
+
     if (this.form.valid) {
       this.save.emit(this.form.value);
     }

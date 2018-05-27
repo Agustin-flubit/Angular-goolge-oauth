@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Store, ActionsSubject } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -7,7 +7,7 @@ import * as fromUsers from '../store';
 import * as fromRoot from '../../store';
 import * as userActions from '../store/actions/users-actions';
 import { User } from '../../core/user/user';
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs/Subscription';
 import { ofType } from '@ngrx/effects';
 import 'rxjs/add/operator/filter';
 import { filter } from 'rxjs/operators';
@@ -15,7 +15,8 @@ import { NotificationsService } from '../../core/notifications/notifications.ser
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
-  styleUrls: ['./user-details.component.scss']
+  styleUrls: ['./user-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserDetailsComponent implements OnInit, OnDestroy {
 

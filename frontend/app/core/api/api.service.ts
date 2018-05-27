@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
@@ -38,8 +38,6 @@ export class ApiService {
   }
 
   private request(method: string, path: string , body?: any, params?: HttpParams): Observable<any> {
-    const paramsString = params ? params.toString() : '';
-
     const options = this.createRequestOptions(body, params);
     return this.httpClient.request<any>(method, `${this.baseUrl}${path}`, options);
   }

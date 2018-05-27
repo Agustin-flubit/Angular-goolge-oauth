@@ -1,7 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import * as fromUsers from '../store';
 import { UserEditComponent } from './user-edit.component';
-import { UserFormComponent } from '../../shared/components/user-form/user-form.component';
 import { SharedModule } from '../../shared/shared.module';
 import { StoreModule, combineReducers } from '@ngrx/store';
 import { NotificationsService } from '../../core/notifications/notifications.service';
@@ -10,6 +8,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { RouterStub } from '../../testing/stubs/router-stub.service';
 import { ActivatedRouteStub } from '../../testing/stubs/activated-route-stub';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import * as fromUsers from '../store';
 
 describe('UserEditComponent', () => {
   let component: UserEditComponent;

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Store, ActionsSubject } from '@ngrx/store';
 
 import * as fromRoot from '../../store';
@@ -14,11 +14,11 @@ import { NotificationsService } from '../../core/notifications/notifications.ser
 @Component({
   selector: 'app-user-new',
   templateUrl: './user-new.component.html',
-  styleUrls: ['./user-new.component.scss']
+  styleUrls: ['./user-new.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserNewComponent implements OnInit, OnDestroy {
   redirectSubscription: Subscription;
-  errorSubscription: Subscription;
   validationErrors: Observable<Object>;
 
   constructor(
@@ -31,6 +31,7 @@ export class UserNewComponent implements OnInit, OnDestroy {
    }
 
   ngOnInit() {
+    this.validationErrors = this.store.select(fromUsers.getErrors);
     this.redirectSubscription = this.actionSubject.pipe(
       ofType(userActions.UsersActionTypes.CREATE_SUCCESS)
     )
@@ -38,8 +39,6 @@ export class UserNewComponent implements OnInit, OnDestroy {
       this.notificationsService.open('User created successfully.');
       this.router.navigate(['/users']);
     });
-
-    this.validationErrors = this.store.select(fromUsers.getErrors);
   }
 
   ngOnDestroy() {

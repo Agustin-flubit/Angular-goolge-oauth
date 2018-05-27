@@ -1,36 +1,39 @@
 <table *ngIf="users; else loading" class="table table-hover">
-  <thead>
-  <tr>
-    <th>#</th>
-    <th>Full Name</th>
-    <th></th>
-  </tr>
+  <p class="text-center">
+    No users. <a class="btn-link" [routerLink]="['/users','new']">add a user</a>
+  </p>
+
+  <thead *ngIf="users.length > 0">
+    <tr>
+      <th>#</th>
+
+      <th>Full Name</th>
+
+      <th></th>
+    </tr>
   </thead>
-  <tbody>
-  <tr class="user-row" *ngFor="let user of users; trackBy: usersTrackByFn">
-    <th scope="row">{{user.id}}</th>
-    <td>{{user.first_name}} {{user.last_name}}</td>
-    <td>
 
-      <span class="float-right">
+  <tbody *ngIf="users.length > 0">
+    <tr class="user-row" *ngFor="let user of users; trackBy: usersTrackByFn">
+      <th scope="row">{{user.id}}</th>
 
-        <button (click)="showDetails(user)" class="btn btn-outline-primary mb-1 btn-sm">
-          DETAILS
-        </button>
+      <td>{{user.first_name}} {{user.last_name}}</td>
+      <td>
+        <span class="float-right">
+          <button (click)="showDetails(user)" class="btn btn-outline-primary mb-1 btn-sm">
+            DETAILS
+          </button>
 
-        <button *ngIf="user.own" (click)="editUser(user)" class="btn btn-outline-warning mb-1 btn-sm">
-          EDIT
-        </button>
+          <button *ngIf="user.own" (click)="editUser(user)" class="btn btn-outline-warning mb-1 btn-sm">
+            EDIT
+          </button>
 
-        <button *ngIf="user.own" (click)="deleteUser(user)" class="btn btn-outline-danger mb-1 btn-sm">
-          DELETE
-        </button>
-
-      </span>
-
-    </td>
-  </tr>
-
+          <button *ngIf="user.own" (click)="deleteUser(user)" class="btn btn-outline-danger mb-1 btn-sm">
+            DELETE
+          </button>
+        </span>
+      </td>
+    </tr>
   </tbody>
 </table>
 

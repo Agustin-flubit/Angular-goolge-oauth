@@ -1,20 +1,17 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  SocialLoginModule,
-  AuthServiceConfig,
-  GoogleLoginProvider
-} from 'angular5-social-login';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'angular5-social-login';
 
-import { environment } from '../../environments/environment';
-import { GoogleAuthService } from './auth/auth.service';
-import { NotificationsService } from './notifications/notifications.service';
 import { AuthGuard } from './auth/auth-guard.service';
 import { ApiService } from './api/api.service';
+import { GoogleAuthService } from './auth/auth.service';
+import { NotificationsService } from './notifications/notifications.service';
 import { UserService } from './user/user.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { TitleResolver } from './resolvers/title-resolver';
+
+import { environment } from '../../environments/environment';
 
 export function getAuthServiceConfigs() {
   const config = new AuthServiceConfig(

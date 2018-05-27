@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+
 import * as fromRoot from '../../store';
 import * as layoutActions from '../../store/actions/layout-actions';
-import {Store} from '@ngrx/store';
 
 @Injectable()
 export class TitleResolver implements Resolve<string> {

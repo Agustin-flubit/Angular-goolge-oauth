@@ -1,72 +1,73 @@
 .login-overlay {
+  position: absolute;
+  text-align: center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #f5f5f5;
+  animate: fadeIn 600ms;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.335, 1.05);
+
+  &::after {
     position: absolute;
-    text-align: center;
     top: 0;
-    bottom: 0;
+    width: 100%;
+    height: 300px;
     left: 0;
     right: 0;
-    background: #f5f5f5;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.335, 1.05);
+    background-image: url(../../assets/login-cover.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    content: "";
+    box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.14);
+  }
 
-    &::after {
-        position: absolute;
-        top: 0;
-        width: 100%;
-        height: 300px;
-        left: 0;
-        right: 0;
-        background-image: url(../../assets/login-cover.jpg);
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center center;
-        content: "";
-        box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.14);
-    }
+  .form-container {
+    position: relative;
+    z-index: 1;
+    top: 150px;
+    background: #ffffff;
+    width: 80%;
+    height: 300px;
+    max-width: 300px;
+    margin: 0 auto;
+  }
 
-    .form-container {
-        position: relative;
-        z-index: 1;
-        top: 150px;
-        background: #ffffff;
-        width: 80%;
-        height: 300px;
-        max-width: 300px;
-        margin: 0 auto;
-    }
-
-    .login-icon { 
-        font-size: 95px;
-        width: 110px;
-        height: 110px;
-        color: white;
-        background: #2979FF;
-        border-radius: 50%;
-    }
+  .login-icon {
+    font-size: 95px;
+    width: 110px;
+    height: 110px;
+    color: white;
+    background: #2979FF;
+    border-radius: 50%;
+  }
 }
 
 .google-btn {
-    margin-top: 2rem;
-    width: 60%;
+  margin-top: 2rem;
+  width: 60%;
 }
 
 .google-logo{
-    height: 25px;
-    margin-right: .5rem;
+  height: 25px;
+  margin-right: .5rem;
 }
 
 .login-footer {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 10px 30px;
-    background-color: white;
-    box-shadow: 0px -1px 2px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 30px;
+  background-color: white;
+  box-shadow: 0px -1px 2px rgba(0, 0, 0, 0.1);
 
-    .footer-section {
-        display: inline-block;
-        color: #88878B;
-        line-height: 36px;
-        font-size: 16px;
-    }
+  .footer-section {
+    display: inline-block;
+    color: #88878B;
+    line-height: 36px;
+    font-size: 16px;
+  }
 }

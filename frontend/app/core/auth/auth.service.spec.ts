@@ -1,14 +1,13 @@
-import { TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
-
-import { GoogleAuthService } from './auth.service';
-import { AuthService } from 'angular5-social-login';
-import { NotificationsService } from '../notifications/notifications.service';
-import { NotificationsStub } from '../../testing/stubs/notifications-stub.service';
-import { GoogleAuthStub } from '../../testing/stubs/google-auth-stub';
-import { RouterStub } from '../../testing/stubs/router-stub.service';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { Router } from '@angular/router';
+
+import { AuthService } from 'angular5-social-login';
+import { GoogleAuthService } from './auth.service';
+import { NotificationsService } from '../notifications/notifications.service';
+
+import { NotificationsStub } from '../../testing/stubs/notifications-stub.service';
+import { RouterStub } from '../../testing/stubs/router-stub.service';
 import { AuthStub } from '../../testing/stubs/auth-stub';
-import { Observable } from 'rxjs/Observable';
 
 describe('AuthService', () => {
   let googleAuthService: GoogleAuthService;

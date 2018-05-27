@@ -8,11 +8,8 @@ export const INIT_UI_STATE: LayoutState = {
   currentTitle: undefined
 };
 
-
 export function reducer(state: LayoutState = INIT_UI_STATE, {type, payload}: layoutActions.All): LayoutState {
-
   switch (type) {
-
     case layoutActions.SET_CURRENT_TITLE : {
       return Object.assign({}, state, {currentTitle: payload});
     }

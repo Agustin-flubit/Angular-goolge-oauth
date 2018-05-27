@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 
 import * as fromRoot from '../../store';
 import * as fromUsers from '../store';
@@ -13,12 +13,12 @@ import { NotificationsService } from '../../core/notifications/notifications.ser
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.scss']
+  styleUrls: ['./user-edit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserEditComponent implements OnInit, OnDestroy {
   user$: Observable<User>;
   redirectSubscription: Subscription;
-  errorSubscription: Subscription;
   validationErrors: Observable<Object>;
 
   constructor(

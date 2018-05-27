@@ -1,13 +1,16 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { User } from '../../core/user/user';
-import * as fromRoot from '../store';
-import * as userActions from '../store/actions/users-actions';
 import { Store, ActionsSubject } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+
+import { User } from '../../core/user/user';
 import { NotificationsService } from '../../core/notifications/notifications.service';
+
+import * as fromRoot from '../store';
+import * as userActions from '../store/actions/users-actions';
+
 @Component({
   selector: 'app-users-index',
   templateUrl: './users-index.component.html',
@@ -15,7 +18,6 @@ import { NotificationsService } from '../../core/notifications/notifications.ser
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsersIndexComponent implements OnInit, OnDestroy {
-
   users$: Observable<User[]>;
   private notificationsSubscription: Subscription;
 

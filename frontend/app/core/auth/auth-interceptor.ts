@@ -1,10 +1,9 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   HttpInterceptor,
   HttpRequest,
   HttpEvent,
   HttpHandler,
-  HttpResponse,
   HttpErrorResponse
 } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
@@ -18,18 +17,19 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     request = request.clone({
-        setHeaders: {
-          Authorization: `Token ${localStorage.getItem('token')}`
-        }
+      setHeaders: {
+        Authorization: `Token ${localStorage.getItem('token')}`
+      }
     });
+
     return next.handle(request).do((event: HttpEvent<any>) => {
-      }, (err: any) => {
-        if (err instanceof HttpErrorResponse) {
-            if (err.status === 401) {
-                 this.authService.deleteUser();
-                 this.router.navigate(['/signin']); // In case any unauthenticated request
-            }
+    }, (err: any) => {
+      if (err instanceof HttpErrorResponse) {
+        if (err.status === 401) {
+          this.authService.deleteUser();
+          this.router.navigate(['signin']); // In case any unauthenticated request
         }
+      }
     });
   }
 }

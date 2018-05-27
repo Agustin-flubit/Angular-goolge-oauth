@@ -8,7 +8,6 @@ import { User } from '../../../core/user/user';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserDetailsCardComponent implements OnInit {
-
   @Input() user: User;
   @Output() edit = new EventEmitter<User>();
   @Output() remove = new EventEmitter<User>();
@@ -17,5 +16,4 @@ export class UserDetailsCardComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

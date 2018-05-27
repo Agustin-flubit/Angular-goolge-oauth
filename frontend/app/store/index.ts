@@ -1,4 +1,4 @@
-import {ActionReducerMap, createFeatureSelector, createSelector} from '@ngrx/store';
+import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 
 import * as fromLayout from './reducers/layout-reducer';
 

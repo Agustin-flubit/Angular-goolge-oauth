@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { tokenNotExpired } from 'angular2-jwt';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+
 import {
   AuthService,
-  FacebookLoginProvider,
   GoogleLoginProvider,
   SocialUser
 } from 'angular5-social-login';
+
 import { NotificationsService } from '../notifications/notifications.service';
+
 
 @Injectable()
 export class GoogleAuthService {
