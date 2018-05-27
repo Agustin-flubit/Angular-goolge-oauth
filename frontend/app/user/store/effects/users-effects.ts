@@ -42,10 +42,10 @@ export class UsersEffects {
         .map((actiion: userActions.Create) =>  actiion.payload)
         .switchMap((user: User) => {
             return this.userService.create(user)
-            .map((response: User) => new userActions.CreateSuccess(response))
-            .catch((err: HttpErrorResponse) => {
-                return Observable.of(new userActions.Failure({concern: 'CREATE', error: err.error}));
-            });
+                .map((response: User) => new userActions.CreateSuccess(response))
+                .catch((err: HttpErrorResponse) => {
+                    return Observable.of(new userActions.Failure({concern: 'CREATE', error: err.error}));
+                });
         });
 
     @Effect()
@@ -54,12 +54,22 @@ export class UsersEffects {
         .map((actiion: userActions.Patch) =>  actiion.payload)
         .switchMap((user: User) => {
             return this.userService.update(user)
-            .map((updatedUser: User) => new userActions.PatchSuccess({
-                id: updatedUser.id,
-                changes: updatedUser
-            }))
-            .catch((err: HttpErrorResponse) => {
-                return Observable.of(new userActions.Failure({concern: 'PATCH', error: err.error}));
-            });
+                .map((updatedUser: User) => new userActions.PatchSuccess({
+                    id: updatedUser.id,
+                    changes: updatedUser
+                }))
+                .catch((err: HttpErrorResponse) => {
+                    return Observable.of(new userActions.Failure({concern: 'PATCH', error: err.error}));
+                });
         });
+
+    @Effect()
+    delete$: Observable<Action> = this.actions$
+        .ofType(userActions.UsersActionTypes.DELETE)
+        .map((action: userActions.Delete) => action.payload)
+        .switchMap((id: number) => {
+            return this.userService.delete(id)
+                .map(() => new userActions.DeleteSuccess(id));
+        });
+
 }

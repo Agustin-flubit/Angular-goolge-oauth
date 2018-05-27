@@ -3,5 +3,6 @@
 <app-users-list 
   [users]="users$ | async"
   (show)="showUser($event)"
-  (edit)="editUser($event)">
+  (edit)="editUser($event)"
+  (remove)="removeUser($event)">
 </app-users-list>

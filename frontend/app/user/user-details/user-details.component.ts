@@ -11,8 +11,7 @@ import { Subscription } from 'rxjs';
 import { ofType } from '@ngrx/effects';
 import 'rxjs/add/operator/filter';
 import { filter } from 'rxjs/operators';
-
-
+import { NotificationsService } from '../../core/notifications/notifications.service';
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
@@ -27,7 +26,8 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     private store: Store<fromRoot.State>,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private actionsSubject: ActionsSubject
+    private actionsSubject: ActionsSubject,
+    private notificationService: NotificationsService
   ) { }
 
   ngOnInit() {
@@ -37,7 +37,10 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
       ofType(userActions.UsersActionTypes.DELETE_SUCCESS),
       filter((action: userActions.DeleteSuccess) =>
       action.payload === +this.activatedRoute.snapshot.params['userId'])
-    ).subscribe(_ => this.router.navigate(['/users']));
+    ).subscribe(() => {
+      this.notificationService.open('User Deleted successfully.');
+      this.router.navigate(['/users']);
+    });
 
     this.activatedRoute.params.subscribe(params => {
       this.store.dispatch(new userActions.Load(+params['userId']));
