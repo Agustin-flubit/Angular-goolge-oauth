@@ -10,16 +10,13 @@ import { User } from '../../core/user/user';
 import { Observable } from 'rxjs/Observable';
 import { ActionsSubject, Store } from '@ngrx/store';
 import { NotificationsService } from '../../core/notifications/notifications.service';
-
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
   styleUrls: ['./user-edit.component.scss']
 })
 export class UserEditComponent implements OnInit, OnDestroy {
-
   user$: Observable<User>;
-
   redirectSubscription: Subscription;
   errorSubscription: Subscription;
   validationErrors: Observable<Object>;

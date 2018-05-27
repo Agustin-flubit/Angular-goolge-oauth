@@ -18,7 +18,10 @@ export class AppComponent implements OnInit {
   currentPageTitle$: Observable<string>;
   user$: Observable<SocialUser>;
 
-  constructor(private googleAuthService: GoogleAuthService, private store: Store<fromRoot.State>) {}
+  constructor(
+    private googleAuthService: GoogleAuthService,
+    private store: Store<fromRoot.State>
+  ) {}
 
   ngOnInit() {
     this.currentPageTitle$ = this.store.select(fromRoot.getCurrentTitle);

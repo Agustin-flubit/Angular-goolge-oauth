@@ -1,20 +1,27 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SigninComponent } from './signin.component';
+import { SignInComponent } from './signin.component';
+import { SharedModule } from '../shared/shared.module';
+import { GoogleAuthStub } from '../testing/stubs/google-auth-stub';
+import { GoogleAuthService } from '../core/auth/auth.service';
 
 describe('SigninComponent', () => {
-  let component: SigninComponent;
-  let fixture: ComponentFixture<SigninComponent>;
+  let component: SignInComponent;
+  let fixture: ComponentFixture<SignInComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SigninComponent ]
+      imports: [ SharedModule ],
+      declarations: [ SignInComponent ],
+      providers: [
+        { provide: GoogleAuthService, userClass: GoogleAuthStub }
+      ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SigninComponent);
+    fixture = TestBed.createComponent(SignInComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

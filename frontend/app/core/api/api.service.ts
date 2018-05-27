@@ -12,8 +12,7 @@ export class ApiService {
   private baseUrl: string;
 
   constructor(
-    private httpClient: HttpClient,
-    private notificationsService: NotificationsService,
+    private httpClient: HttpClient
 
   ) {
     this.baseUrl = environment.apiBase;
@@ -55,14 +54,4 @@ export class ApiService {
     options.headers.append('Content-Type', 'application/json');
     return options;
   }
-
-  // private requestErrorHandler(err: HttpErrorResponse): Observable<HttpErrorResponse> {
-  //   const errors = err.error.details;
-
-  //   if (!errors) {
-  //     this.notificationsService.open('Oops! Something went wrong, please try again.');
-  //   }
-
-  //   return Observable.throw(err);
-  // }
 }

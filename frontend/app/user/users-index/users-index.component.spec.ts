@@ -1,14 +1,36 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UsersIndexComponent } from './users-index.component';
+import { UsersListComponent } from '../../shared/components/users-list/users-list.component';
+import { SharedModule } from '../../shared/shared.module';
+import { StoreModule, Store, ReducerManager, ReducerManagerDispatcher, combineReducers } from '@ngrx/store';
+import * as fromUsers from '../store';
+
+import { NotificationsService } from '../../core/notifications/notifications.service';
+import { NotificationsStub } from '../../testing/stubs/notifications-stub.service';
+import { RouterStub } from '../../testing/stubs/router-stub.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Router } from '@angular/router';
+import { InjectionToken } from '@angular/core';
 
 describe('UsersIndexComponent', () => {
   let component: UsersIndexComponent;
+  let store: Store<fromUsers.UsersState>;
   let fixture: ComponentFixture<UsersIndexComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UsersIndexComponent ]
+      imports: [
+        SharedModule,
+        StoreModule.forRoot({
+          users: combineReducers(fromUsers.reducers)
+        })
+      ],
+      declarations: [UsersIndexComponent],
+      providers: [
+        {provide: NotificationsService, useClass: NotificationsStub},
+        {provide: Router, useClass: RouterStub}
+      ]
     })
     .compileComponents();
   }));
@@ -16,6 +38,8 @@ describe('UsersIndexComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(UsersIndexComponent);
     component = fixture.componentInstance;
+    store = TestBed.get(Store);
+    spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();
   });
 

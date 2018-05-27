@@ -11,8 +11,6 @@ import { User } from '../../core/user/user';
 import { Observable } from 'rxjs/Observable';
 import { NotificationsService } from '../../core/notifications/notifications.service';
 
-
-
 @Component({
   selector: 'app-user-new',
   templateUrl: './user-new.component.html',
