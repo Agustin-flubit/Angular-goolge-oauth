@@ -12,6 +12,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
 import { TitleResolver } from './resolvers/title-resolver';
 
 import { environment } from '../../environments/environment';
+import { AdminGuard } from './auth/admin-guard';
 
 export function getAuthServiceConfigs() {
   const config = new AuthServiceConfig(
@@ -32,6 +33,7 @@ export function getAuthServiceConfigs() {
   declarations: [],
   providers: [
     AuthGuard,
+    AdminGuard,
     ApiService,
     GoogleAuthService,
     NotificationsService,

@@ -7,6 +7,7 @@ import { TitleResolver } from '../core/resolvers/title-resolver';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserNewComponent } from './user-new/user-new.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
+import { AdminGuard } from '../core/auth/admin-guard';
 
 const routes: Routes = [
   { path: '',
@@ -38,8 +39,9 @@ const routes: Routes = [
         path: ':userId/edit',
         component: UserEditComponent,
         pathMatch: 'full',
-        data: {title: 'User Details'},
-        resolve: {title: TitleResolver}
+        data: {title: 'User Edit'},
+        resolve: {title: TitleResolver},
+        canActivate: [AdminGuard]
       },
     ]
   }

@@ -16,11 +16,6 @@ import { User } from '../../../core/user/user';
 @Injectable()
 export class UsersEffects {
 
-  constructor(
-    private actions$: Actions,
-    private userService: UserService
-  ) {}
-
   @Effect()
   loadAll$: Observable<Action> = this.actions$
   .ofType(userActions.UsersActionTypes.LOAD_ALL)
@@ -69,4 +64,9 @@ export class UsersEffects {
     return this.userService.delete(id)
     .map(() => new userActions.DeleteSuccess(id));
   });
+
+  constructor(
+    private actions$: Actions,
+    private userService: UserService
+  ) {}
 }
