@@ -4,7 +4,7 @@ import { SocialUser } from 'angular5-social-login';
 import { Observable } from 'rxjs/Observable';
 
 import * as fromRoot from './store';
-import { GoogleAuthService } from './core/auth/auth.service';
+import { AuthService } from './core/auth/auth.service';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -19,20 +19,19 @@ export class AppComponent implements OnInit {
   user$: Observable<SocialUser>;
 
   constructor(
-    private googleAuthService: GoogleAuthService,
+    private authService: AuthService,
     private store: Store<fromRoot.State>
   ) {
-    this.googleAuthService.init();
+    this.authService.init();
   }
 
   ngOnInit() {
     this.currentPageTitle$ = this.store.select(fromRoot.getCurrentTitle);
-    this.user$ = this.googleAuthService.getCurrentUser();
-    this.isAuthenticated$ = this.googleAuthService.isAuthenticated$;
+    this.user$ = this.authService.getCurrentUser();
+    this.isAuthenticated$ = this.authService.isAuthenticated$;
   }
 
   logout() {
-    this.googleAuthService.logout();
+    this.authService.logout();
   }
-
 }

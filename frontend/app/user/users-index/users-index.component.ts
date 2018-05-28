@@ -61,4 +61,8 @@ export class UsersIndexComponent implements OnInit, OnDestroy {
       this.store.dispatch(new userActions.Delete(user.id));
     }
   }
-}
+
+  goToCreateNew($event) {
+    this.router.navigate(['/users', 'new']);
+  }
+ }

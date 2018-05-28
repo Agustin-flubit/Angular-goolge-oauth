@@ -6,7 +6,12 @@ import * as fromUsers from '../store';
 import { NotificationsService } from '../../core/notifications/notifications.service';
 import { NotificationsStub } from '../../testing/stubs/notifications-stub.service';
 import { RouterStub } from '../../testing/stubs/router-stub.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRouteStub } from '../../testing/stubs/activated-route-stub';
+import { LocationStrategy } from '@angular/common';
+import { RouterTestingModule } from '@angular/router/testing';
+import { UserNewComponent } from '../user-new/user-new.component';
+import { UserModule } from '../user.module';
 
 describe('UsersIndexComponent', () => {
   let component: UsersIndexComponent;
@@ -17,14 +22,19 @@ describe('UsersIndexComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         SharedModule,
+        RouterTestingModule.withRoutes([
+          { path: 'users/new', component: UserNewComponent }
+        ]),
         StoreModule.forRoot({
           users: combineReducers(fromUsers.reducers)
         })
       ],
-      declarations: [UsersIndexComponent],
+      declarations: [UsersIndexComponent, UserNewComponent],
       providers: [
+        LocationStrategy,
         {provide: NotificationsService, useClass: NotificationsStub},
-        {provide: Router, useClass: RouterStub}
+        {provide: Router, useClass: RouterStub},
+        {provide: ActivatedRoute, useClass: ActivatedRouteStub}
       ]
     })
     .compileComponents();

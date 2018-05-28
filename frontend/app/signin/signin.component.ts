@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { GoogleAuthService } from '../core/auth/auth.service';
+import { AuthService } from '../core/auth/auth.service';
 
 @Component({
   selector: 'app-signin',
@@ -8,9 +8,9 @@ import { GoogleAuthService } from '../core/auth/auth.service';
 })
 export class SignInComponent {
 
-  constructor( private googleAuthService: GoogleAuthService ) {}
+  constructor( private authService: AuthService ) {}
 
   login() {
-    this.googleAuthService.login();
+    this.authService.login();
   }
 }

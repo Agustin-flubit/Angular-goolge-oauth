@@ -4,5 +4,6 @@
   [users]="users$ | async"
   (show)="showUser($event)"
   (edit)="editUser($event)"
-  (remove)="removeUser($event)">
+  (remove)="removeUser($event)"
+  (new)="goToCreateNew($event)">
 </app-users-list>

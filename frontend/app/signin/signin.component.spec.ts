@@ -3,7 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SignInComponent } from './signin.component';
 import { SharedModule } from '../shared/shared.module';
 import { GoogleAuthStub } from '../testing/stubs/google-auth-stub';
-import { GoogleAuthService } from '../core/auth/auth.service';
+import { AuthService } from '../core/auth/auth.service';
+import { AuthStub } from '../testing/stubs/auth-stub';
 
 describe('SigninComponent', () => {
   let component: SignInComponent;
@@ -14,7 +15,7 @@ describe('SigninComponent', () => {
       imports: [ SharedModule ],
       declarations: [ SignInComponent ],
       providers: [
-        { provide: GoogleAuthService, userClass: GoogleAuthStub }
+        { provide: AuthService, userClass: AuthStub }
       ]
     })
     .compileComponents();

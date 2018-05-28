@@ -2,10 +2,10 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SharedModule } from './shared/shared.module';
-import { GoogleAuthService } from './core/auth/auth.service';
-import { GoogleAuthStub } from './testing/stubs/google-auth-stub';
+import { AuthService } from './core/auth/auth.service';
 import * as fromRoot from './store';
 import { StoreModule, combineReducers } from '@ngrx/store';
+import { AuthStub } from './testing/stubs/auth-stub';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -21,7 +21,7 @@ describe('AppComponent', () => {
         AppComponent
       ],
       providers: [
-        { provide: GoogleAuthService, useClass: GoogleAuthStub }
+        { provide: AuthService, useClass: AuthStub }
       ]
     }).compileComponents();
   }));

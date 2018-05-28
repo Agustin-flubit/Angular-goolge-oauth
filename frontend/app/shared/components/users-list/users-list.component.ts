@@ -12,6 +12,7 @@ export class UsersListComponent implements OnInit {
   @Output() edit = new EventEmitter<User>();
   @Output() show = new EventEmitter<User>();
   @Output() remove = new EventEmitter<User>();
+  @Output() new = new EventEmitter<any>();
 
   usersTrackByFn = (index: number, user: User) => user.own;
 
@@ -29,5 +30,9 @@ export class UsersListComponent implements OnInit {
 
   deleteUser(user: User) {
     this.remove.emit(user);
+  }
+
+  createNew(user: User) {
+    this.new.emit();
   }
 }

@@ -1,24 +1,31 @@
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+const socialUserResponse = {
+    provider: 'google',
+    email: 'test@test.com',
+    name: 'test',
+    image: 'http://test.png',
+    token: '',
+    idToken: '90900900909090900909'
+};
+export class GoogleAuthStub  {
+    initialize() {
+        return new Promise((resolve) => {
+            resolve(socialUserResponse);
+        });
+    }
 
-export class GoogleAuthStub {
-  isAuthenticated$ = new BehaviorSubject<boolean>(false);
-  private isAuthStatus = false;
-  user$ = new BehaviorSubject(undefined);
+    drawUser() {}
 
-  getCurrentUser() {
-    return Observable.of(this.user$.value || {
-        provider: '',
-        id: '',
-        email: '',
-        name: '',
-        image: ''
-    });
-  }
+    signIn(provider: any) {
+        return new Promise((resolve) => {
+            resolve(socialUserResponse);
+        });
+    }
 
-  login() {}
+    signOut() {
+        return new Promise((resolve) => {
+            resolve(null);
+        });
+    }
 
-  logout() {}
-
-  deleteUser() {}
+    revokeUserScope() {}å
 }

@@ -9,11 +9,12 @@ import {
 import { NotificationsService } from '../notifications/notifications.service';
 
 import { environment } from '../../../environments/environment';
+import { GoogleAuthService } from './google-auth.service';
 
 declare let gapi: any;
 
 @Injectable()
-export class GoogleAuthService {
+export class AuthService {
   private readonly  MSG_LOGIN_SUCCESS = `You are now logged in.`;
   private readonly MSG_LOGOUT_ERROR = `Error Logging out. Try again`
   private readonly MSG_LOGIN_ERROR = `Error Login. Try again`;
@@ -28,6 +29,7 @@ export class GoogleAuthService {
 
   constructor(
     private notificationService: NotificationsService,
+    private googleAuthService: GoogleAuthService,
     private router: Router
   ) {
     const token = localStorage.getItem('token');
@@ -43,12 +45,11 @@ export class GoogleAuthService {
   }
 
   init() {
-    this.googleInitialize().then((userData) => {
+    this.googleAuthService.initialize().then((userData) => {
         if (userData) {
           this.user = userData;
           localStorage.setItem('token', userData.idToken);
           localStorage.setItem('user', JSON.stringify(userData));
-          this.notificationService.open(this.MSG_LOGIN_SUCCESS);
           this.isAuthStatus = true;
           this.isAuthenticated.next(true);
           this.user$.next(this.user);
@@ -58,6 +59,7 @@ export class GoogleAuthService {
         }
       }
     ).catch(() => {
+      this.deleteUser();
       this.notificationService.open(this.MSG_LOGIN_ERROR);
       this.router.navigate(['/signin']);
     });
@@ -68,7 +70,7 @@ export class GoogleAuthService {
   }
 
   login() {
-    this.googleSignIn().then((userData) => {
+    this.googleAuthService.signIn().then((userData) => {
       if (userData) {
         this.user = userData;
         localStorage.setItem('token', userData.idToken);
@@ -80,13 +82,14 @@ export class GoogleAuthService {
         this.router.navigate(['']);
       }
     }).catch(() => {
+      this.router.navigate(['/signin']);
       this.notificationService.open(this.MSG_LOGIN_ERROR);
     });
   }
 
   logout(): void {
-    this.googleSignOut().then(() => {
-      this.googleRevokeUserScope();
+    this.googleAuthService.signOut().then(() => {
+      this.googleAuthService.revokeUserScope();
       this.deleteUser();
       this.notificationService.open(this.MSG_LOGOUT_SUCCESS);
       this.router.navigate(['/signin']);
@@ -102,66 +105,5 @@ export class GoogleAuthService {
     this.isAuthenticated.next(false);
     this.user$.next(this.user);
     this.user = null;
-  }
-
-  private googleRevokeUserScope() {
-    this.auth2.disconnect();
-  }
-
-  private googleInitialize(): Promise<SocialUser> {
-    return new Promise((resolve, reject) => {
-      gapi.load('auth2', () => {
-        this.auth2 = gapi.auth2.init({
-          client_id: environment.google_auth_client_id,
-          scope: 'email profile openid'
-        });
-
-        this.auth2.then(() => {
-          if (this.auth2.isSignedIn.get()) {
-            resolve(this.drawUser());
-          } else {
-            resolve(null);
-          }
-        }).catch(err => {
-          reject(err);
-        })
-      });
-    });
-  }
-
-  private drawUser(): SocialUser {
-    const user: SocialUser = new SocialUser();
-    const profile = this.auth2.currentUser.get().getBasicProfile();
-    const authResponseObj = this.auth2.currentUser.get().getAuthResponse(true);
-    user.id = profile.getId();
-    user.name = profile.getName();
-    user.email = profile.getEmail();
-    user.image = profile.getImageUrl();
-    user.token = authResponseObj.access_token;
-    user.idToken = authResponseObj.id_token;
-    return user;
-  }
-
-  private googleSignIn(): Promise<SocialUser> {
-    return new Promise((resolve, reject) => {
-      const promise = this.auth2.signIn({
-        prompt: 'select_account'
-      });
-      promise.then(() => {
-        resolve(this.drawUser());
-      });
-    });
-  }
-
-  private googleSignOut(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.auth2.signOut().then((err: any) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      });
-    });
   }
 }

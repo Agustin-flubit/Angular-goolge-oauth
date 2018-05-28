@@ -8,7 +8,7 @@ import { UserService } from '../user/user.service';
 import { ApiService } from '../api/api.service';
 import { RouterStub } from '../../testing/stubs/router-stub.service';
 import { environment } from '../../../environments/environment';
-import { GoogleAuthService } from './auth.service';
+import { AuthService } from './auth.service';
 
 describe('AuthInterceptor', () => {
   const mockAuthService = {
@@ -29,7 +29,7 @@ describe('AuthInterceptor', () => {
         UserService,
         ApiService,
         {
-          provide: GoogleAuthService,
+          provide: AuthService,
           useValue: mockAuthService
         },
         { provide: Router, useClass: RouterStub },

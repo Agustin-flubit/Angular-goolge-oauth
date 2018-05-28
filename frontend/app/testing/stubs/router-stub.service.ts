@@ -6,5 +6,9 @@ export class RouterStub {
 
     navigate() { }
 
+    createUrlTree() {}
+
+    serializeUrl(url: any) {}
+
     navigateByUrl() { }
 }

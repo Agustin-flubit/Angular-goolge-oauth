@@ -5,7 +5,7 @@ import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'angul
 
 import { AuthGuard } from './auth/auth-guard.service';
 import { ApiService } from './api/api.service';
-import { GoogleAuthService } from './auth/auth.service';
+import { AuthService } from './auth/auth.service';
 import { NotificationsService } from './notifications/notifications.service';
 import { UserService } from './user/user.service';
 import { AuthInterceptor } from './auth/auth-interceptor';
@@ -13,6 +13,7 @@ import { TitleResolver } from './resolvers/title-resolver';
 
 import { environment } from '../../environments/environment';
 import { AdminGuard } from './auth/admin-guard';
+import { GoogleAuthService } from './auth/google-auth.service';
 
 export function getAuthServiceConfigs() {
   const config = new AuthServiceConfig(
@@ -35,6 +36,7 @@ export function getAuthServiceConfigs() {
     AuthGuard,
     AdminGuard,
     ApiService,
+    AuthService,
     GoogleAuthService,
     NotificationsService,
     TitleResolver,
