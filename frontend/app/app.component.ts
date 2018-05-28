@@ -21,7 +21,9 @@ export class AppComponent implements OnInit {
   constructor(
     private googleAuthService: GoogleAuthService,
     private store: Store<fromRoot.State>
-  ) {}
+  ) {
+    this.googleAuthService.init();
+  }
 
   ngOnInit() {
     this.currentPageTitle$ = this.store.select(fromRoot.getCurrentTitle);
