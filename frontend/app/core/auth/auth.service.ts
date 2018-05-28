@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import {
-  AuthService,
-  GoogleLoginProvider,
   SocialUser
 } from 'angular5-social-login';
 
@@ -29,7 +27,6 @@ export class GoogleAuthService {
   isAuthenticated$: Observable<boolean>;
 
   constructor(
-    private socialAuthService: AuthService,
     private notificationService: NotificationsService,
     private router: Router
   ) {
@@ -46,7 +43,7 @@ export class GoogleAuthService {
   }
 
   init() {
-    this.initialize().then((userData) => {
+    this.googleInitialize().then((userData) => {
         if (userData) {
           this.user = userData;
           localStorage.setItem('token', userData.idToken);
@@ -71,7 +68,7 @@ export class GoogleAuthService {
   }
 
   login() {
-    this.signIn().then((userData) => {
+    this.googleSignIn().then((userData) => {
       if (userData) {
         this.user = userData;
         localStorage.setItem('token', userData.idToken);
@@ -88,8 +85,8 @@ export class GoogleAuthService {
   }
 
   logout(): void {
-    this.signOut().then(() => {
-      this.revokeUserScope();
+    this.googleSignOut().then(() => {
+      this.googleRevokeUserScope();
       this.deleteUser();
       this.notificationService.open(this.MSG_LOGOUT_SUCCESS);
       this.router.navigate(['/signin']);
@@ -107,11 +104,11 @@ export class GoogleAuthService {
     this.user = null;
   }
 
-  revokeUserScope() {
+  private googleRevokeUserScope() {
     this.auth2.disconnect();
   }
 
-  initialize(): Promise<SocialUser> {
+  private googleInitialize(): Promise<SocialUser> {
     return new Promise((resolve, reject) => {
       gapi.load('auth2', () => {
         this.auth2 = gapi.auth2.init({
@@ -132,7 +129,7 @@ export class GoogleAuthService {
     });
   }
 
-  drawUser(): SocialUser {
+  private drawUser(): SocialUser {
     const user: SocialUser = new SocialUser();
     const profile = this.auth2.currentUser.get().getBasicProfile();
     const authResponseObj = this.auth2.currentUser.get().getAuthResponse(true);
@@ -145,7 +142,7 @@ export class GoogleAuthService {
     return user;
   }
 
-  signIn(): Promise<SocialUser> {
+  private googleSignIn(): Promise<SocialUser> {
     return new Promise((resolve, reject) => {
       const promise = this.auth2.signIn({
         prompt: 'select_account'
@@ -156,7 +153,7 @@ export class GoogleAuthService {
     });
   }
 
-  signOut(): Promise<any> {
+  private googleSignOut(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.auth2.signOut().then((err: any) => {
         if (err) {
