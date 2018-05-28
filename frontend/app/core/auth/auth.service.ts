@@ -59,6 +59,7 @@ export class AuthService {
         }
       }
     ).catch(() => {
+      this.googleAuthService.revokeUserScope();
       this.deleteUser();
       this.notificationService.open(this.MSG_LOGIN_ERROR);
       this.router.navigate(['/signin']);
@@ -82,8 +83,10 @@ export class AuthService {
         this.router.navigate(['']);
       }
     }).catch(() => {
-      this.router.navigate(['/signin']);
+      this.googleAuthService.revokeUserScope();
+      this.deleteUser();
       this.notificationService.open(this.MSG_LOGIN_ERROR);
+      this.router.navigate(['/signin']);
     });
   }
 

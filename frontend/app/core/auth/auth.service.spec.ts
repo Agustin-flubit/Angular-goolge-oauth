@@ -24,7 +24,7 @@ describe('AuthService', () => {
     TestBed.configureTestingModule({
       providers: [
         AuthService,
-        {provide: GoogleAuthService, useValue: googleAuhStub},
+        { provide: GoogleAuthService, useValue: googleAuhStub },
         { provide: NotificationsService, useClass: NotificationsStub},
         { provide: Router, useClass: RouterStub}
       ]
