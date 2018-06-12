@@ -64,8 +64,6 @@ Setup
 * Create a Google OAuth client ID (https://developers.google.com/identity/sign-in/web/devconsole-project) and add http://angular-test.rh-dev.eu:8001 to "Authorized JavaScript origins"
 * Save the client ID in the Django settings file (backend/settings.py) to the variable GOOGLE_CLIENT_ID and use the same one in the frontend app
 * Start the development webserver ```./manage.py runserver 0.0.0.0:8000```
-* Implement the frontend against the API
-* Extend the readme on how to build and run the frontend, the frontend webserver should run on port 8001 (http://angular-test.rh-dev.eu:8001)
 
 
 Frontend 
